@@ -12,19 +12,31 @@ export default new Router({
       component: HelloWorld
     },
     {
+      // 登陆页面
       path: '/login',
-      name: '登录',
-      component: '../view/jiumo/login.vue'
+      name: '登录页面',
+      component: require('../view/jiumo/login.vue').default,
+      meta: {
+        title: '登录'
+      }
     },
     {
-      path: '/jmform',
-      name: '表单',
-      component: '../view/jiumo/jiumoform.vue'
+      // 填写表单页面
+      path: '/form1',
+      name: '表单页面',
+      component: require('../view/jiumo/jiumoform.vue').default,
+      meta: {
+        title: '个人信息'
+      }
     },
     {
+      // 借款合同页面
       path: '/loanContract',
       name: '借款合同',
-      component: '../view/jiumo/LoanContract.vue'
-    }
+      component: require('../view/jiumo/LoanContract.vue').default,
+      meta: {
+        title: '借款合同'
+      }
+    },
   ]
 })

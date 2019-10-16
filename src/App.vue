@@ -11,12 +11,23 @@ export default {
 </script>
 
 <style>
+.group{
+  margin-bottom: 1rem;
+}
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-image: linear-gradient(#7de5ec, #22a3d6);
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
 }
 </style>

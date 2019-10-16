@@ -3,9 +3,10 @@
         <div class="login-tit">Wlecome</div>
             <van-cell-group class="group">
                 <van-field 
+                left-icon="contact"
                 placeholder="请输入手机号" 
                 type="number" 
-                label="手机号"
+                input-align="center"
                 required
                 maxlength='11'
                 v-model="form.phone"/>
@@ -13,11 +14,12 @@
 
             <van-cell-group  class="group">
                 <van-field 
+                left-icon="closed-eye"
                 placeholder="请输入密码" 
                 required
+                input-align="center"
                 v-model="form.pass"
-                type="password" 
-                label="密码"/>
+                type="password" />
             </van-cell-group>
 
             <van-button round style="margin:0 auto;width:100%;" @click="login" type="info">登录</van-button>
@@ -40,7 +42,7 @@ export default {
     methods: {
         login(){
             // 手机号正则
-            var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+            var myreg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
 
             // // 手机格式
             // if(this.form.phone == '' || this.form.pass == ''){
@@ -60,7 +62,7 @@ export default {
 
 <style lang="less">
     .form-lo{
-        margin: 6rem 1rem;
+        margin: 6rem .5rem;
         padding: 2.6rem;
         .login-tit{
             width: 100%;
@@ -69,6 +71,9 @@ export default {
             font-family: 'Times New Roman', Times, serif;
             font-size: 42px;
             margin-bottom: 2rem;
+        }
+        .group {
+            border-radius: 50%;
         }
     }
 </style>

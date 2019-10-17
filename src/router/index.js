@@ -37,6 +37,6 @@ export default new Router({
       meta: {
         title: '借款合同'
       }
-    },
+    }
   ]
 })

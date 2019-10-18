@@ -164,13 +164,13 @@
       </van-cell-group>
   </div> 
 
+      <van-button round style="margin:0 auto;width:100%;" :disabled="but" @click="getsure" type="info">确定</van-button>
+
       <div class="rad">
-        <van-checkbox v-model="form.value" icon-size=".14rem">
+        <van-checkbox v-model="form.value" icon-size="1rem">
           我已充分了解并确认《<router-link to="loanContract">借款合同</router-link>》内容
         </van-checkbox>
       </div>
-
-      <van-button round style="margin:0 auto;width:100%;" :disabled="but" @click="getsure" type="info">确定</van-button>
     </div>
   </div>
 </template>
@@ -208,8 +208,8 @@ export default {
         form: {
             name01: "",
             name02:"",
-            sex01:'',
-            sex02:'',
+            sex01:3,
+            sex02:3,
             idcardnum01: "",
             idcardnum02: "",
             banknum01: "",
@@ -231,8 +231,9 @@ export default {
       }
     },
     getsure() {
+      console.log(this.form.sex01)
       if(this.show){
-        if( this.form.sex01 == '' || this.form.sex02 == ''){
+        if( this.form.sex01 == 3 || this.form.sex02 == 3){
             this.$toast('请选择性别')
         }else if(this.form.value == false){
             this.$toast('请了解并确认借款合同内容')
@@ -240,12 +241,12 @@ export default {
             this.$router.push("/result");//跳转
         }
       }else{
-        if( this.form.sex01 == ''){
+        if( this.form.sex01 == 3){
             this.$toast('请选择性别')
         }else if(this.form.value == false){
             this.$toast('请了解并确认借款合同内容')
         }else{
-            this.$router.push("/result");//跳转
+            this.$toast('提交成功')
         }
       }
     },
@@ -261,7 +262,7 @@ export default {
     },
     inputname(e){
         var myreg=/^[\u4e00-\u9fa5]+$/;
-        if(!myreg.test(this.form.name)){
+        if(!myreg.test(this.form.name01)){
             this.$toast('请输入中文姓名')
             this.tname=false
             this.but=true
@@ -276,7 +277,7 @@ export default {
     inputphone(e){
         // 手机号正则
         var myreg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
-        if(!myreg.test(this.form.phone)){
+        if(!myreg.test(this.form.phone01)){
             this.$toast('请输入正确格式的手机号码')
             this.tphone=false
             this.but=true
@@ -290,7 +291,7 @@ export default {
     },
     inputid(e){
         var myreg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        if(!myreg.test(this.form.idcardnum)){
+        if(!myreg.test(this.form.idcardnum01)){
             this.$toast('请输入正确格式的身份证号码')
             this.tid=false
             this.but=true
@@ -303,7 +304,7 @@ export default {
         }
     },
     inputbank(e){
-        if(this.form.banknum.length<16){
+        if(this.form.banknum01.length<16){
             this.$toast('请输入正确格式的银行卡号码')
             this.tbank=false
             this.but=true
@@ -389,20 +390,20 @@ export default {
   .rad {
     height: 1.62rem;
     line-height: 1.62rem;
-    font-size: 0.14rem;
+    font-size:12px;
+    margin:0 auto;
     text-align: center !important;
-    width: 100%;
-    margin-bottom: 1.4rem;
+    margin-top: 1.4rem;
   }
   .addloan{
     height: 1.4rem;
     line-height: 1.4rem;
     text-align: right;
     margin: .6rem 0;
-    font-size: .24rem;
+    font-size: 14px;
     .yocon{
       position: relative;
-      top: 3px;
+      top: .18rem;
     }
   }
   .contract2{

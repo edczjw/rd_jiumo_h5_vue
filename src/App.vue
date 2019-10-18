@@ -22,7 +22,7 @@ body{
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  background-image: linear-gradient(#f3f1f0,#f8a686, #df5f14);
+  background-image: linear-gradient(#f5fafa,#f8e0b0, #f18f3f);
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

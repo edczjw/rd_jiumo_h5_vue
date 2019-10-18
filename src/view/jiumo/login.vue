@@ -10,7 +10,7 @@
                 required
                 maxlength='11'
                 @blur="inputphone"
-                v-model="form.phone"/>
+                v-model="form.mobile"/>
             </van-cell-group>
 
             <van-cell-group  class="group">
@@ -21,7 +21,7 @@
                 maxlength='6'
                 input-align="center"
                 @blur="inputpass"
-                v-model="form.pass"
+                v-model="form.password"
                 type="password" />
             </van-cell-group>
 
@@ -37,8 +37,8 @@ export default {
             cpass:false,
             but:true,   //按钮点击状态
             form:{
-                phone:'',
-                pass:''
+                mobile:'',
+                password:''
             }
         }
     },
@@ -49,7 +49,7 @@ export default {
         inputphone(e){
             // 手机号正则
             var myreg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
-            if(!myreg.test(this.form.phone)){
+            if(!myreg.test(this.form.mobile)){
                 this.$toast('请输入正确格式的手机号码')
                 this.cphone=false
                 this.but=true
@@ -63,7 +63,7 @@ export default {
         },
         inputpass(e){
             var myreg=/^[0-9a-zA-Z]{6,20}$|^(?=.*\d+)(?!.*?([\d])\1{5})[\d]{6}$/;
-            if(!myreg.test(this.form.pass)){
+            if(!myreg.test(this.form.password)){
                 this.$toast('请输入正确格式的密码')
                 this.cpass=false
                 this.but=true
@@ -76,29 +76,24 @@ export default {
             }
         },
         login(){
-                this.$router.push("/form1");//跳转
-                // this.$axios({
-                //         method: "post",
-                //         url: this.$store.state.domain + "/manage/hbCreditList",
-                //         data: data
-                //     }).then(
-                //         response => {
-                //         if (res.code == 0) {
-                //                 this.$router.push("/form1");//跳转
-                //                 }else {
-                //                 this.$message({
-                //                 message: res.msg,
-                //                 type: "error"
-                //                 });
-                //             }
-                //         },
-                //         error => {
-                //         this.$message({
-                //             message: '您的账号无此菜单查看权限，谢谢合作',
-                //             type: "error"
-                //             });
-                //         }
-                //     );
+                // this.$router.push("/form1");//跳转
+                this.$axios({
+                        method: "post",
+                        url: this.$store.state.domain + "/login",
+                        data: this.form
+                    }).then(
+                        response => {
+                        if (response.data.code == 0) {
+                            this.$toast.success('登录成功')
+                                this.$router.push("/form1");//跳转
+                                }else {
+                                this.$toast.fail(response.data.msg)
+                            }
+                        },
+                        error => {
+                        this.$toast.fail('异常')
+                        }
+                    );
         }
     },
 }

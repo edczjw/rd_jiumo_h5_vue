@@ -24,7 +24,7 @@
       required
       clickable
       label="性别"
-      :value="sex01"
+      :value="gender01"
       is-link
       input-align="right"
       placeholder="选择"
@@ -48,7 +48,7 @@
           clearable
           input-align="right"
           @blur="inputid"
-          v-model.trim="form.idcardnum01"
+          v-model.trim="form.idNo01"
           label="身份证号"
         />
       </van-cell-group>
@@ -62,7 +62,7 @@
           maxlength="19"
           input-align="right"
           @blur="inputbank"
-          v-model.trim="form.banknum01"
+          v-model.trim="form.bankCardNo01"
           label="银行卡号"
         />
       </van-cell-group>
@@ -76,7 +76,7 @@
           maxlength="11"
           input-align="right"
           @blur="inputphone"
-          v-model.trim="form.phone01"
+          v-model.trim="form.mobile01"
           label="手机号"
         />
       </van-cell-group>
@@ -106,7 +106,7 @@
       required
       clickable
       label="性别"
-      :value="sex02"
+      :value="gender02"
       is-link
       input-align="right"
       placeholder="选择"
@@ -130,7 +130,7 @@
           clearable
           input-align="right"
           @blur="inputid"
-          v-model.trim="form.idcardnum02"
+          v-model.trim="form.idNo02"
           label="身份证号"
         />
       </van-cell-group>
@@ -144,7 +144,7 @@
           maxlength="19"
           input-align="right"
           @blur="inputbank"
-          v-model.trim="form.banknum02"
+          v-model.trim="form.bankCardNo02"
           label="银行卡号"
         />
       </van-cell-group>
@@ -158,7 +158,7 @@
           maxlength="11"
           input-align="right"
           @blur="inputphone"
-          v-model.trim="form.phone02"
+          v-model.trim="form.mobile02"
           label="手机号"
         />
       </van-cell-group>
@@ -198,24 +198,24 @@ export default {
             id: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,  //身份证
         },
         show:false, //显示借款人2
-        sex01:'',
-        sex02:'',
+        gender01:'',
+        gender02:'',
         showPicker01: false,
         showPicker02: false,
-        columns01: ['男','女'],
-        columns02: ['男','女'],
+        columns01: ['女','男'],
+        columns02: ['女','男'],
 
         form: {
             name01: "",
             name02:"",
-            sex01:3,
-            sex02:3,
-            idcardnum01: "",
-            idcardnum02: "",
-            banknum01: "",
-            banknum02: "",
-            phone01: "",
-            phone02: "",
+            gender01:3,
+            gender02:3,
+            idNo01: "",
+            idNo02: "",
+            bankCardNo01: "",
+            bankCardNo02: "",
+            mobile01: "",
+            mobile02: "",
             value: false
         }
     };
@@ -231,33 +231,66 @@ export default {
       }
     },
     getsure() {
-      console.log(this.form.sex01)
       if(this.show){
-        if( this.form.sex01 == 3 || this.form.sex02 == 3){
+        if( this.form.gender01 == 3 || this.form.gender02 == 3){
             this.$toast('请选择性别')
         }else if(this.form.value == false){
             this.$toast('请了解并确认借款合同内容')
         }else{
-            this.$router.push("/result");//跳转
+            this.$axios({
+                        method: "post",
+                        url: this.$store.state.domain + "/saveUserInfo",
+                        data: this.form
+                    }).then(
+                        response => {
+                        if (response.data.code == 0) {
+                            this.$toast.success('提交成功')
+                                // this.$router.push("/form1");//跳转
+                                window.location.reload()
+                                }else {
+                                this.$toast.fail(response.data.msg)
+                            }
+                        },
+                        error => {
+                        this.$toast.fail('异常')
+                        }
+                    );
         }
       }else{
-        if( this.form.sex01 == 3){
+        if( this.form.gender01 == 3){
             this.$toast('请选择性别')
         }else if(this.form.value == false){
             this.$toast('请了解并确认借款合同内容')
         }else{
-            this.$toast('提交成功')
+            this.$axios({
+                        method: "post",
+                        url: this.$store.state.domain + "/saveUserInfo",
+                        data: this.form
+                    }).then(
+                        response => {
+                        if (response.data.code == 0) {
+                            this.$toast.success('提交成功')
+                            window.location.reload()
+                                // this.$router.push("/form1");//跳转
+                                }else {
+                                this.$toast.fail(response.data.msg)
+                            }
+                        },
+                        error => {
+                        this.$toast.fail('异常')
+                        }
+                    );
         }
       }
     },
     onConfirm01(value,index) {
-      this.sex01 = value;
-      this.form.sex01 = index;
+      this.gender01 = value;
+      this.form.gender01 = index;
       this.showPicker01 = false;
     },
     onConfirm02(value,index) {
-      this.sex02 = value;
-      this.form.sex02 = index;
+      this.gender02 = value;
+      this.form.gender02 = index;
       this.showPicker02 = false;
     },
     inputname(e){
@@ -277,7 +310,7 @@ export default {
     inputphone(e){
         // 手机号正则
         var myreg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
-        if(!myreg.test(this.form.phone01)){
+        if(!myreg.test(this.form.mobile01)){
             this.$toast('请输入正确格式的手机号码')
             this.tphone=false
             this.but=true
@@ -291,7 +324,7 @@ export default {
     },
     inputid(e){
         var myreg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        if(!myreg.test(this.form.idcardnum01)){
+        if(!myreg.test(this.form.idNo01)){
             this.$toast('请输入正确格式的身份证号码')
             this.tid=false
             this.but=true
@@ -304,7 +337,7 @@ export default {
         }
     },
     inputbank(e){
-        if(this.form.banknum01.length<16){
+        if(this.form.bankCardNo01.length<16){
             this.$toast('请输入正确格式的银行卡号码')
             this.tbank=false
             this.but=true
@@ -337,7 +370,7 @@ export default {
         // 手机号正则
         var myreg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
         if(show){
-        if(!myreg.test(this.form.phone02)){
+        if(!myreg.test(this.form.mobile02)){
             this.$toast('请输入正确格式的手机号码')
             this.tphone02=false
             this.but=true
@@ -352,7 +385,7 @@ export default {
     inputid02(e){
         var myreg=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
         if(show){
-        if(!myreg.test(this.form.idcardnum02)){
+        if(!myreg.test(this.form.idNo02)){
             this.$toast('请输入正确格式的身份证号码')
             this.tid02=false
             this.but=true
@@ -366,7 +399,7 @@ export default {
     },
     inputbank02(e){
       if(show){
-        if(this.form.banknum02.length<16){
+        if(this.form.bankCardNo02.length<16){
             this.$toast('请输入正确格式的银行卡号码')
             this.tbank02=false
             this.but=true

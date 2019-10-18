@@ -13,12 +13,13 @@ import 'vant/lib/index.css';
 Vue.use(Vant);
 
 Vue.config.productionTip = false
+
+
 // 跳转后返回顶部
 router.afterEach((to,from,next) => {
     window.scrollTo(0,0);
 });
 Vue.use(ElementUI)
-
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title
   next()

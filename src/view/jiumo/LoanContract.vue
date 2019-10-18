@@ -7,6 +7,8 @@
             @click-left="onClickLeft"
             @click-right="onClickRight"
             />
+
+            
     </div>
 </template>
 

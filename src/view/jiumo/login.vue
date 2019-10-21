@@ -1,12 +1,12 @@
 <template>
     <div class="form-lo">
-        <div class="login-tit">Wlecome</div>
+        <div class="login-tit">Welcome</div>
             <van-cell-group class="group">
                 <van-field 
                 right-icon="contact"
                 placeholder="请输入手机号" 
                 type="number" 
-                input-align="center"
+                input-align="left"
                 required
                 maxlength='11'
                 @blur="inputphone"
@@ -15,17 +15,18 @@
 
             <van-cell-group  class="group">
                 <van-field 
-                right-icon="closed-eye"
+                :right-icon="showpass? 'eye-o':'closed-eye'"
                 placeholder="请输入密码" 
                 required
                 maxlength='6'
-                input-align="center"
+                input-align="left"
                 @blur="inputpass"
                 v-model="form.password"
-                type="password" />
+                @click-right-icon='showpass=!showpass'
+                :type="showpass? 'number':'password'" />
             </van-cell-group>
 
-            <van-button round style="margin:0 auto;width:100%;" @click="login" :disabled="but" type="info">登录</van-button>
+            <van-button round style="margin:0 auto;width:100%;" @click="login" type="info">登录</van-button>
     </div>
 </template>
 
@@ -35,7 +36,8 @@ export default {
         return{
             cphone:false,
             cpass:false,
-            but:true,   //按钮点击状态
+            showpass:false,//密码解密
+            // but:true,   //按钮点击状态
             form:{
                 mobile:'',
                 password:''
@@ -48,14 +50,14 @@ export default {
     methods: {
         inputphone(e){
             // 手机号正则
-            var myreg=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+            var myreg=/^1[3456789]\d{9}$/;
             if(!myreg.test(this.form.mobile)){
                 this.$toast('请输入正确格式的手机号码')
                 this.cphone=false
-                this.but=true
+                // this.but=true
             }else{
                 if(this.cpass){
-                    this.but=false
+                    // this.but=false
                 }else{
                     this.cphone=true
                 }
@@ -66,10 +68,10 @@ export default {
             if(!myreg.test(this.form.password)){
                 this.$toast('请输入正确格式的密码')
                 this.cpass=false
-                this.but=true
+                // this.but=true
             }else{
                 if(this.cphone){
-                    this.but=false
+                    // this.but=false
                 }else{
                     this.cpass=true
                 }

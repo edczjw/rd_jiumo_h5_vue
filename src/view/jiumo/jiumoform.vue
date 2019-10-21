@@ -92,7 +92,7 @@
             required
             clearable
             input-align="right"
-            @blur="inputname"
+            @blur="inputname02"
             v-model.trim="form.name02"
           />
         </van-cell-group>
@@ -126,7 +126,7 @@
             required
             clearable
             input-align="right"
-            @blur="inputid"
+            @blur="inputid02"
             v-model.trim="form.idNo02"
             label="身份证号"
           />
@@ -140,7 +140,7 @@
             type="number"
             maxlength="19"
             input-align="right"
-            @blur="inputbank"
+            @blur="inputbank02"
             v-model.trim="form.bankCardNo02"
             label="银行卡号"
           />
@@ -154,7 +154,7 @@
             type="number"
             maxlength="11"
             input-align="right"
-            @blur="inputphone"
+            @blur="inputphone02"
             v-model.trim="form.mobile02"
             label="手机号"
           />
@@ -549,7 +549,7 @@ export default {
 
     inputname02(e) {
       var myreg = /^[\u4e00-\u9fa5]+$/;
-      if (show) {
+      if (this.show) {
         if (!myreg.test(this.form.name02)) {
           this.$toast("请输入中文姓名");
           this.form.name02 = "";
@@ -559,7 +559,7 @@ export default {
     inputphone02(e) {
       // 手机号正则
       var myreg = /^1[3456789]\d{9}$/;
-      if (show) {
+      if (this.show) {
         if (!myreg.test(this.form.mobile02)) {
           this.$toast("请输入正确格式的手机号码");
           this.form.mobile02 = "";
@@ -568,7 +568,7 @@ export default {
     },
     inputid02(e) {
       var myreg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-      if (show) {
+      if (this.show) {
         if (!myreg.test(this.form.idNo02)) {
           this.$toast("请输入正确格式的身份证号码");
           this.form.idNo02 = "";
@@ -576,7 +576,7 @@ export default {
       }
     },
     inputbank02(e) {
-      if (show) {
+      if (this.show) {
         if (this.form.bankCardNo02.length < 16) {
           this.$toast("请输入正确格式的银行卡号码");
           this.form.bankCardNo02 = "";

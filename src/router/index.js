@@ -8,8 +8,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      // 打开域名直接定向到登录页面
+      redirect:'/login',
+      meta: {
+        title: '登录'
+      }
     },
     {
       // 登陆页面

@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        domain: 'https://test.outsidecoo.msxiaodai.com'
+        domain: 'https://outsidecoo.msxiaodai.com'
     },
     mutations: {
         

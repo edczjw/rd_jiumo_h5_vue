@@ -208,8 +208,8 @@ export default {
         form: {
             name01: "",
             name02:"",
-            gender01:3,
-            gender02:3,
+            gender01:null,
+            gender02:null,
             idNo01: "",
             idNo02: "",
             bankCardNo01: "",
@@ -232,7 +232,7 @@ export default {
     },
     getsure() {
       if(this.show){
-        if( this.form.gender01 == 3 || this.form.gender02 == 3){
+        if( this.form.gender01 == null || this.form.gender02 == null){
             this.$toast('请选择性别')
         }else if(this.form.value == false){
             this.$toast('请了解并确认借款合同内容')
@@ -257,7 +257,7 @@ export default {
                     );
         }
       }else{
-        if( this.form.gender01 == 3){
+        if( this.form.gender01 == null){
             this.$toast('请选择性别')
         }else if(this.form.value == false){
             this.$toast('请了解并确认借款合同内容')

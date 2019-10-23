@@ -40,6 +40,15 @@ export default new Router({
       meta: {
         title: '借款合同'
       }
+    },
+    {
+      // 结果页
+      path: '/result',
+      name: '结果',
+      component: require('../view/jiumo/result.vue').default,
+      meta: {
+        title: '申请结果'
+      }
     }
   ]
 })
